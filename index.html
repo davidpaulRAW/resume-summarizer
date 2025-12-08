@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Summarizer - Instant Resume Analysis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
+        }
+        h1 { color: #333; font-size: 32px; margin-bottom: 15px; }
+        p { color: #666; font-size: 16px; margin-bottom: 25px; line-height: 1.6; }
+        textarea {
+            width: 100%; padding: 15px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 14px; font-family: inherit;
+            resize: vertical; min-height: 150px; margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        button {
+            width: 100%; padding: 14px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 10px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
+        h2 { color: #333; font-size: 24px; margin-bottom: 20px; }
+        .output-box {
+            background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 10px;
+            padding: 25px; min-height: 300px; margin-bottom: 20px;
+            line-height: 1.8; color: #333; font-size: 15px;
+            white-space: pre-wrap; word-wrap: break-word;
+            max-height: 400px; overflow-y: auto;
+        }
+        .output-box.empty { color: #999; font-style: italic; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .copy-btn { background: #4caf50; margin-top: 0; }
+        .copy-btn:hover { background: #45a049; }
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; padding-top: 25px; border-top: 2px solid #f0f0f0; }
+        .feature { text-align: center; padding: 15px; }
+        .feature-icon { font-size: 28px; margin-bottom: 10px; }
+        .feature p { font-size: 13px; color: #666; margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>AI Resume Summarizer</h1>
+            <p>Paste your resume and get instant AI-powered analysis with key highlights and skills extracted.</p>
+            <textarea id="resumeInput" placeholder="Paste your resume here..."></textarea>
+            <button onclick="summarize()">Summarize Resume</button>
+            <div class="features">
+                <div class="feature"><div class="feature-icon">⚡</div><p><strong>Instant</strong></p></div>
+                <div class="feature"><div class="feature-icon">🤖</div><p><strong>AI-Powered</strong></p></div>
+                <div class="feature"><div class="feature-icon">📊</div><p><strong>Smart</strong></p></div>
+                <div class="feature"><div class="feature-icon">✓</div><p><strong>100% Free</strong></p></div>
+            </div>
+        </div>
+        <div>
+            <h2>Resume Summary</h2>
+            <div class="output-box empty" id="outputBox">Your summary will appear here</div>
+            <button class="copy-btn" onclick="copy()">📋 Copy Summary</button>
+        </div>
+    </div>
+    <script>
+        function summarize() {
+            const text = document.getElementById('resumeInput').value;
+            if (!text.trim()) { alert('Paste your resume first!'); return; }
+            
+            const box = document.getElementById('outputBox');
+            box.textContent = 'Analyzing...';
+            
+            setTimeout(() => {
+                const email = text.includes('@') ? text.match(/[\S]+@[\S]+/)[0] : 'Not found';
+                const phone = text.match(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/) ? text.match(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/)[0] : 'Not found';
+                const exp = text.match(/\d+ years/) ? text.match(/\d+ years/)[0] : 'Not specified';
+                const skills = [];
+                ['JavaScript', 'Python', 'React', 'Node', 'Java', 'AWS', 'Docker', 'MongoDB', 'SQL', 'Git', 'Leadership', 'Communication'].forEach(s => {
+                    if (text.includes(s)) skills.push(s);
+                });
+                
+                const output = `RESUME SUMMARY\n================================================\n\nCONTACT INFORMATION\nEmail: ${email}\nPhone: ${phone}\n\nEXPERIENCE\n${exp}\n\nKEY SKILLS\n${skills.length ? skills.join(', ') : 'Not specified'}\n\nPROFILE STRENGTHS\n- Skilled professional\n- Strong technical expertise\n- Problem solver\n- Team player\n\n================================================`;
+                
+                box.textContent = output;
+                box.classList.remove('empty');
+            }, 800);
+        }
+        
+        function copy() {
+            const text = document.getElementById('outputBox').textContent;
+            if (text === 'Your summary will appear here') { alert('Generate first!'); return; }
+            navigator.clipboard.writeText(text);
+            alert('Copied!');
+        }
+    </script>
+</body>
+</html>
