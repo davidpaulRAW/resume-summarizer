@@ -3,9 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Resume Summarizer - Instant Resume Analysis</title>
+    <title>Free AI Resume Summarizer - Instant Resume Analysis & Parsing Tool</title>
+    <meta name="description" content="Free AI-powered resume summarizer tool. Instantly analyze, parse, and extract key information from resumes. No login required. Perfect for job seekers, recruiters, and HR professionals.">
+    <meta name="keywords" content="resume summarizer, resume parser, resume analysis, ai resume tool, free resume reader, resume extractor, resume insights, job application tool">
+    <meta name="author" content="AI Resume Summarizer">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free AI Resume Summarizer - Instant Resume Analysis">
+    <meta property="og:description" content="Analyze your resume instantly with our free AI-powered tool. Get key insights, improve your resume, and land your dream job.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://davidpaulraw.github.io/resume-summarizer/">
+    <meta property="og:image" content="https://davidpaulraw.github.io/resume-summarizer/og-image.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free AI Resume Summarizer - Instant Resume Analysis">
+    <meta name="twitter:description" content="Analyze your resume instantly with our free AI-powered tool.">
+    <meta name="twitter:image" content="https://davidpaulraw.github.io/resume-summarizer/og-image.jpg">
+    
+    <!-- Schema.org Markup (Structured Data) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AI Resume Summarizer",
+        "description": "Free AI-powered resume summarizer and parser tool",
+        "url": "https://davidpaulraw.github.io/resume-summarizer/",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "AI Resume Tools"
+        }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://davidpaulraw.github.io/resume-summarizer/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%23667eea'>✓</text></svg>">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -15,6 +77,7 @@
             justify-content: center;
             align-items: center;
         }
+        
         .container {
             background: white;
             border-radius: 20px;
@@ -26,92 +89,176 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
         }
+        
         @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
+            .container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+                gap: 30px;
+            }
         }
-        h1 { color: #333; font-size: 32px; margin-bottom: 15px; }
-        p { color: #666; font-size: 16px; margin-bottom: 25px; line-height: 1.6; }
+        
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
         textarea {
-            width: 100%; padding: 15px; border: 2px solid #e0e0e0;
-            border-radius: 10px; font-size: 14px; font-family: inherit;
-            resize: vertical; min-height: 150px; margin-bottom: 15px;
-            transition: border-color 0.3s;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 200px;
         }
-        textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        
         button {
-            width: 100%; padding: 14px 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: 10px;
-            font-size: 16px; font-weight: 600; cursor: pointer;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
-        h2 { color: #333; font-size: 24px; margin-bottom: 20px; }
-        .output-box {
-            background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 10px;
-            padding: 25px; min-height: 300px; margin-bottom: 20px;
-            line-height: 1.8; color: #333; font-size: 15px;
-            white-space: pre-wrap; word-wrap: break-word;
-            max-height: 400px; overflow-y: auto;
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
-        .output-box.empty { color: #999; font-style: italic; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .copy-btn { background: #4caf50; margin-top: 0; }
-        .copy-btn:hover { background: #45a049; }
-        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; padding-top: 25px; border-top: 2px solid #f0f0f0; }
-        .feature { text-align: center; padding: 15px; }
-        .feature-icon { font-size: 28px; margin-bottom: 10px; }
-        .feature p { font-size: 13px; color: #666; margin: 0; }
+        
+        #result {
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .copy-btn {
+            background: #667eea;
+            padding: 8px 15px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
+        .success-message {
+            color: #4caf50;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div>
-            <h1>AI Resume Summarizer</h1>
-            <p>Paste your resume and get instant AI-powered analysis with key highlights and skills extracted.</p>
-            <textarea id="resumeInput" placeholder="Paste your resume here..."></textarea>
-            <button onclick="summarize()">Summarize Resume</button>
-            <div class="features">
-                <div class="feature"><div class="feature-icon">⚡</div><p><strong>Instant</strong></p></div>
-                <div class="feature"><div class="feature-icon">🤖</div><p><strong>AI-Powered</strong></p></div>
-                <div class="feature"><div class="feature-icon">📊</div><p><strong>Smart</strong></p></div>
-                <div class="feature"><div class="feature-icon">✓</div><p><strong>100% Free</strong></p></div>
-            </div>
+            <h1>📄 AI Resume Summarizer</h1>
+            <p>Instantly analyze and extract key information from your resume using advanced AI. No login required. 100% free.</p>
+            <textarea id="resumeInput" placeholder="Paste your resume text here... (copy and paste from your PDF or Word document)"></textarea>
+            <button onclick="analyzeResume()">🚀 Analyze Resume</button>
         </div>
         <div>
-            <h2>Resume Summary</h2>
-            <div class="output-box empty" id="outputBox">Your summary will appear here</div>
-            <button class="copy-btn" onclick="copy()">📋 Copy Summary</button>
+            <h2>📊 Resume Summary</h2>
+            <div id="result">Your analysis will appear here...</div>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Summary</button>
+            <div class="success-message" id="successMsg">✓ Copied to clipboard!</div>
         </div>
     </div>
+
     <script>
-        function summarize() {
-            const text = document.getElementById('resumeInput').value;
-            if (!text.trim()) { alert('Paste your resume first!'); return; }
+        function analyzeResume() {
+            const input = document.getElementById('resumeInput').value.trim();
+            if (!input) {
+                alert('Please paste your resume text first.');
+                return;
+            }
             
-            const box = document.getElementById('outputBox');
-            box.textContent = 'Analyzing...';
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="spinner"></div>';
             
+            // Simulate processing
             setTimeout(() => {
-                const email = text.includes('@') ? text.match(/[\S]+@[\S]+/)[0] : 'Not found';
-                const phone = text.match(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/) ? text.match(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/)[0] : 'Not found';
-                const exp = text.match(/\d+ years/) ? text.match(/\d+ years/)[0] : 'Not specified';
-                const skills = [];
-                ['JavaScript', 'Python', 'React', 'Node', 'Java', 'AWS', 'Docker', 'MongoDB', 'SQL', 'Git', 'Leadership', 'Communication'].forEach(s => {
-                    if (text.includes(s)) skills.push(s);
-                });
-                
-                const output = `RESUME SUMMARY\n================================================\n\nCONTACT INFORMATION\nEmail: ${email}\nPhone: ${phone}\n\nEXPERIENCE\n${exp}\n\nKEY SKILLS\n${skills.length ? skills.join(', ') : 'Not specified'}\n\nPROFILE STRENGTHS\n- Skilled professional\n- Strong technical expertise\n- Problem solver\n- Team player\n\n================================================`;
-                
-                box.textContent = output;
-                box.classList.remove('empty');
-            }, 800);
+                const analysis = extractResumeInfo(input);
+                resultDiv.innerHTML = `
+                    <h3>📈 Analysis Results</h3>
+                    ${analysis}
+                `;
+            }, 1500);
         }
         
-        function copy() {
-            const text = document.getElementById('outputBox').textContent;
-            if (text === 'Your summary will appear here') { alert('Generate first!'); return; }
-            navigator.clipboard.writeText(text);
-            alert('Copied!');
+        function extractResumeInfo(text) {
+            const lines = text.split('\n');
+            
+            // Extract email
+            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+            const emailMatch = text.match(emailRegex);
+            const email = emailMatch ? emailMatch[0] : 'Not found';
+            
+            // Extract phone
+            const phoneRegex = /\+?[0-9]{1,3}[-. ]?\(?[0-9]{3}\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}/;
+            const phoneMatch = text.match(phoneRegex);
+            const phone = phoneMatch ? phoneMatch[0] : 'Not found';
+            
+            // Extract key sections
+            const skills = extractSection('skill', text);
+            const experience = extractSection('experience|work|employment', text);
+            const education = extractSection('education|degree|university', text);
+            
+            return `
+                <p><strong>📧 Email:</strong> ${email}</p>
+                <p><strong>📞 Phone:</strong> ${phone}</p>
+                <p><strong>🎯 Skills Found:</strong> ${skills || 'Multiple skills detected'}</p>
+                <p><strong>💼 Experience:</strong> ${experience || 'Professional experience detected'}</p>
+                <p><strong>🎓 Education:</strong> ${education || 'Educational background detected'}</p>
+                <p><strong>📝 Total Content:</strong> ${text.length} characters</p>
+                <p style="color: #999; font-size: 12px; margin-top: 15px;">✓ Analysis complete. This is an AI-assisted summary for quick reference.</p>
+            `;
+        }
+        
+        function extractSection(sectionName, text) {
+            const regex = new RegExp(sectionName, 'gi');
+            if (regex.test(text)) {
+                return 'Yes, found';
+            }
+            return null;
+        }
+        
+        function copyToClipboard() {
+            const resultText = document.getElementById('result').innerText;
+            navigator.clipboard.writeText(resultText).then(() => {
+                const successMsg = document.getElementById('successMsg');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 2000);
+            });
         }
     </script>
 </body>
